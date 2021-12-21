@@ -1,0 +1,29 @@
+<div class="col-12 col-lg-4 mb-5">
+    <div>
+        <a href="{{.RelPermalink}}">
+            <img class="rounded-0" src="{{.Params.image}}" alt="Card image cap">
+        </a>
+        <div class="px-0 pt-3">
+            <div style="color:grey; font-size:16px;">{{ if .Params.categories }} {{range
+                .Params.categories}}<a href="/categories/{{ . | urlize }}">{{ . }}</a>
+                {{end}}{{end}}</div>
+            <h2 class="card-title font-weight-bold h4">
+                <a class="text-dark" href="{{.RelPermalink}}">{{.Title}}</a>
+            </h2>
+            <p class="card-text">{{.Summary | truncate 150 }}</p>
+            <div class="text-muted">
+                {{ if .Params.authors }}
+                {{ range .Params.authors }}
+                <span id="post-author">
+                    <span>
+                        Posted by </span>
+                    <a href="/authors/{{lower .}}">{{ . }}</a>
+                </span>
+                {{ end }}
+                {{ end }}
+                <span>
+                    | </span><span id="post-date">{{.Params.createdAt}}</span>
+            </div>
+        </div>
+    </div>
+</div>

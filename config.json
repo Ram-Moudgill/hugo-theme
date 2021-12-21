@@ -1,0 +1,64 @@
+{
+    "baseURL": "https://applanding-hugo-theme",
+    "languageCode": "en-us",
+    "paginate": "12",
+    "ignoreErrors": [
+        "error-remote-getjson"
+    ],
+    "taxonomies": {
+        "author": "authors",
+        "tag": "tags",
+        "category": "categories"
+    },
+    "params": {
+        "title": "This is site title",
+        "name": "Applanding",
+        "favicon": "https://d1pnnwteuly8z3.cloudfront.net/images/dafc1e05-b0e8-4c6d-b375-4a62333bbd5a/0cea2c47-624a-4aa8-ad04-801244ecde3a.png",
+        "description": "description",
+        "ogTitle": "this is site og title",
+        "ogDescription": "this is site ogdescription",
+        "twitterTitle": "this is twitter title",
+        "twitterDescription": "this is twitter description",
+        "metaTags": [
+            {
+                "metaType": "name",
+                "value": "meta1",
+                "content": "meta1content"
+            },
+            {
+                "metaType": "property",
+                "value": "meta1",
+                "content": "meta1content"
+            },
+            {
+                "metaType": "itemprop",
+                "value": "meta1",
+                "content": "meta1content"
+            }
+        ],
+        "globalJs": [
+            "hello.js"
+        ],
+        "globalCss": [
+            "https://d33wubrfki0l68.cloudfront.net/css/5fd9995f83d24220a64f7f7def7acb379f76dab4/assets/css/style.css"
+        ],
+        "globalInlineJs": [
+            "<script>let value='ok'</script>"
+        ],
+        "globalInlineCss": [
+            "<style>body{background:#007bff26;}</style>"
+        ],
+        "ga_id": "ga_id",
+        "ga_id_v4": "ga_id_v4",
+        "gtm_id": "GTM-MX89LS4",
+        "fp_id": "426856812263319",
+        "intercom_id": "intercom_id",
+        "drift_id": "grkaepc7sm96",
+        "crisp_id": "c42bebc6-80c5-4b68-9aa1-8a1d39cee96e",
+        "rewardful_id": "rewardful_id",
+        "hotjar_id": "2755490",
+        "hubspot_id": "25382167",
+        "fullstory_id": "17CHH3",
+        "amplitude_id": "a2eb4921bc859d8ef4a81b4b4df84cd8"
+    }
+}

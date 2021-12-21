@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+{{ partial "head/bloghead.html" . }}
+
+<body>
+    {{ partial "header/header.html" .}}
+    <div class="container mt-4">
+        <div>
+            <div class="d-flex flex-column justify-content-center align-items-center author-section">
+                {{$pageAuthor:= .Title }}
+                {{ range $.Site.Data.blog.authors.authors }}
+                {{$author:= .authorName }}
+                {{if eq $author $pageAuthor}}
+                <img class="img-fluid author-img" height="131" width="131" src="{{.authorImage}}" alt="">
+                <h1 style="font-weight: 600;">Author {{$pageAuthor}}</h1>
+                <p class="bio">
+                    {{.authorBio}}
+                </p>
+                <div class="follow-me-on mr-2">
+                    {{ if .twitter }}
+                    <a href="{{.twitter}}"><i class="fab fa-twitter"></i></a>
+                    {{ end }}
+                    {{ if .facebook }}
+                    <a href="{{.facebook}}"> <i class="fab fa-facebook-f"></i></a>
+                    {{ end }}
+                    {{ if .instagram }}
+                    <a href="{{.instagram}}"> <i class="fab fa-instagram-square"></i></a>
+                    {{ end }}
+                    {{ if .youtube }}
+                    <a href="{{.youtube}}"> <i class="fab fa-youtube"></i></a>
+                    {{ end }}
+                    {{ if .linkedin }}
+                    <a href="{{.linkedin}}"> <i class="fab fa-linkedin-in"></i></a>
+                    {{ end }}
+                </div>
+
+                {{end}}
+                {{end}}
+
+            </div>
+
+        </div>
+        <div class="row mt-5">
+            {{ range (.Paginate (where .Data.Pages "Section" "blog")).Pages }}
+            {{ partial "postbox/postbox.html" .}}
+            {{ end }}
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    </div>
+
+</body>
+
+</html>

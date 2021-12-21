@@ -1,1 +1,3 @@
-# hugo-theme
+# hugo
+
+# applanding-blog-theme-hugo

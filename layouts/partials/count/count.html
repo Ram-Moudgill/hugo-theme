@@ -1,0 +1,9 @@
+<div class="explore">
+    <h2 class="text-white">Explore <span class="d-none d-md-inline">→</span></h2>
+    <ul>
+        {{range ($.Site.GetPage "taxonomyTerm" "categories").Pages }}
+        <a class="cat mt-1 mb-1" href="{{.Permalink}}">{{.Title}}</a></li>
+        {{end}}
+    </ul>
+</div>
+</div>

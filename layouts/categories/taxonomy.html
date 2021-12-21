@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+{{ partial "head/bloghead.html" . }}
+
+<body>
+    {{ partial "header/header.html" .}}
+    <div class="container">
+        <h1 class="mt-5 pb-3" style="font-weight: 600;">Category {{.Title}}
+        </h1>
+        <div class="row">
+            {{ range (.Paginate (where .Data.Pages "Section" "blog")).Pages }}
+            {{ partial "postbox/postbox.html" .}}
+            {{ end }}
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    </div>
+
+</body>
+
+</html>

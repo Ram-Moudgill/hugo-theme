@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+{{ partial "head/bloghead.html" . }}
+
+<body>
+    {{ partial "header/header.html" .}}
+    <div class="container">
+        <div class="share-icons text-center d-none d-md-block position-fixed ml-2 top-25">
+            <p class='social-share d-block border text-muted rounded border-w-2px mb-2' data-type="facebook"
+                aria-label="Share on Facebook" target="_blank" rel="noopener" class=" " href=""> <i
+                    class="fab fa-facebook-f p-2">
+                </i>
+            </p>
+            <p class='social-share d-block border text-muted rounded border-w-2px mb-2' data-type="twitter"
+                aria-label="Share on Twitter" target="_blank" rel="noopener" class="" href=""> <i
+                    class="fab fa-twitter p-2">
+                </i>
+            </p>
+            <p class='social-share d-block border text-muted rounded border-w-2px mb-2' data-type="linkedin"
+                aria-label="Share on Linkedin" target="_blank" rel="noopener"
+                class="d-block border text-muted rounded border-w-2px " href=""> <i class="fab fa-linkedin-in p-2">
+                </i>
+            </p>
+        </div>
+
+        {{ $readTime := mul (div (countwords .Content) 220.0) 60 }}
+
+        {{ $minutes := math.Floor (div $readTime 60) }}
+        {{ $seconds := mod $readTime 60 }}
+        {{ $showDate := .Params.createdAt}}
+
+        <div class="row">
+            <div class="col-lg-8 mt-4 pr-lg-5">
+                <h1>{{.Title}}</h1>
+                <div class="text-muted d-flex justify-content-between post-author-section">
+                    {{ if .Params.authors }}
+                    {{ range .Params.authors }}
+                    {{$author:= . }}
+                    <div class="d-flex">
+                        <div class="author-img">
+                            {{ range $.Site.Data.blog.authors.authors }}
+                            {{ if eq $author .authorName }}
+                            <img height="48" width="48" src="{{.authorImage}}" alt="">
+                            {{ end }}
+                            {{end}}
+                        </div>
+                        <div class="ml-2">
+                            <div>
+                                <span id="post-author-name">
+                                    <a href="/authors/{{lower .}}">{{ . }}</a>
+                                </span>
+                            </div>
+                            <div class="d-flex d-readtime">
+                                <div id="post-date">
+                                    <span>{{$showDate}}</span> &nbsp;
+                                </div>
+                                <div>{{ $minutes }} {{ cond (eq $minutes 1) "minute" "min read" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ range $.Site.Data.blog.authors.authors }}
+                    {{ if eq $author .authorName }}
+                    <div class="follow-me-on mr-2">
+                        {{ if .twitter }}
+                        <a href="{{.twitter}}"><i class="fab fa-twitter"></i></a>
+                        {{ end }}
+                        {{ if .facebook }}
+                        <a href="{{.facebook}}"> <i class="fab fa-facebook-f"></i></a>
+                        {{ end }}
+                        {{ if .instagram }}
+                        <a href="{{.instagram}}"> <i class="fab fa-instagram-square"></i></a>
+                        {{ end }}
+                        {{ if .youtube }}
+                        <a href="{{.youtube}}"> <i class="fab fa-youtube"></i></a>
+                        {{ end }}
+                        {{ if .linkedin }}
+                        <a href="{{.linkedin}}"> <i class="fab fa-linkedin-in"></i></a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                    {{end}}
+
+                </div>
+
+                {{ end }}
+                {{ end }}
+
+            </div>
+            <div class="col-lg-8 pr-lg-5" id="main-content">
+                {{.Content}}
+            </div>
+            <div class="col-lg-4">
+                <div class="row mb-5">
+                    <div class="col">
+                        <div class="bg-dark text-white p-4 pt-5 text-center">
+                            <h3 class="font-weight-bold text-white">
+                                2500+ SaaS marketers are signed up </h3>
+                            <p class="text-white">
+                                Don’t miss out on the latest tips, tools, and tactics on converting visitors to
+                                paid customers. </p>
+                            <form data-formid="22b9c222-564a-4af3-960c-1814ec7e2a0f" data-has-form-eventlistener="true">
+                                <div class="input-group">
+                                    <div class="input-group mb-3">
+                                        <input type="email" aria-label="Email" name="email"
+                                            placeholder="Your email address" class="form-control border-dark"
+                                            required="">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" aria-label="Subscribe" role="none" aria-hidden="false"
+                                                class="btn btn-primary">
+                                                Subscribe </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div data-form-successid="22b9c222-564a-4af3-960c-1814ec7e2a0f"
+                                class="d-none alert alert-success text-white">
+                                <p>
+                                    Thanks for signing up! </p>
+                            </div>
+                            <div data-form-errorid="22b9c222-564a-4af3-960c-1814ec7e2a0f"
+                                class="d-none alert alert-danger text-white mt-2">
+                                <p>
+                                    Error sending please try again </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    {{ if gt (len .Params.categories) 0 }}
+                    <h6 class="text-muted text-uppercase mb-3" style="letter-spacing:2px">
+                        Categories </h6>
+                    <div class="row" id="categories">
+                        {{ range $index, $name := sort .Params.categories -}}
+                        {{ with site.GetPage (printf "/%s" ($name | urlize )) -}}
+                        <div class="col-6">
+                            <a href="{{ .RelPermalink }}" title="Bereich: {{ .Name | markdownify}}">{{
+                                .Name | markdownify}}</a>
+                            <hr>
+                        </div>
+                        {{- end}}
+                        {{- end }}
+                    </div>
+                    {{ end }}
+                    {{ if gt (len .Params.tags) 0 }}
+                    <h6 class="text-muted text-uppercase mb-3" style="letter-spacing:2px">
+                        tags </h6>
+                    <div class="row" id="tags">
+                        {{ range $index, $name := sort .Params.tags -}}
+                        {{ with site.GetPage (printf "/%s" ($name | urlize )) -}}
+                        <div class="col-6">
+                            <a href="{{ .RelPermalink }}" title="Bereich: {{ .Name | markdownify}}">{{
+                                .Name | markdownify}}</a>
+                            <hr>
+                        </div>
+                        {{- end}}
+                        {{- end }}
+                    </div>
+                    {{ end }}
+                </div>
+                <div>
+                    <h6 class="text-muted text-uppercase mt-3 mb-3" style="letter-spacing:2px">
+                        Latest Posts </h6>
+                    <div class="row" id="popular-posts">
+                        {{$posts := ($.Site.GetPage "section" "blog").Pages.ByPublishDate.Reverse}}
+                        {{ range first 5 $posts }}
+                        <div class="col-12 mb-2">
+                            <a href="{{.RelPermalink}}">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img width="97" src="{{.Params.image}}" alt="popular post img">
+                                    </div>
+                                    <div class="col-8 pl-0">
+                                        <p>{{.Title}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {{ end }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-links">
+        <div class="bottompagination">
+            <div class="pointerup"><i class="fa fa-caret-up"></i></div>
+            <span class="navigation" role="navigation">
+                <div class="pagination">
+                    {{ if .PrevPage }}
+                    <a class="ml-1 mr-1 pageUrl" href="{{ .PrevPage.Permalink }}">
+                        « Prev </a>
+                    {{ end }}
+                    {{ if .NextPage }}
+                    <a class="ml-1 mr-1 pageUrl" href="{{ .NextPage.Permalink }}"> Next »</a>
+                    {{ end }}
+                </div>
+            </span>
+        </div>
+    </div>
+    {{ partial "count/count.html" . }}
+    {{ partial "alertbar/alertbar.html" . }}
+    <script>
+        const socialShareItems = document.querySelectorAll('.social-share')
+        Array.from(socialShareItems).map(item => {
+            item.addEventListener('click', (e) => {
+                if (e.target.dataset.type = "facebook") {
+                    window.location.href = `https://www.facebook.com/sharer.php?u=${window.location.href}`
+                }
+                if (e.target.dataset.type = "twitter") {
+                    window.location.href = `https://twitter.com/intent/tweet?text=${window.location.href}`
+                }
+                if (e.target.dataset.type = "linkedin") {
+                    window.location.href = `https://www.linkedin.com/shareArticle?mini=true&amp;url=${window.location.href}`
+                }
+            })
+        })
+    </script>
+    {{ partial "scripts/blogscripts.html" . }}
+</body>
+
+</html>

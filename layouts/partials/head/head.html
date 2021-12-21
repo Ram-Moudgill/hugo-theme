@@ -1,0 +1,90 @@
+{{$data:= getJSON .Params.path}}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{.Site.Params.favicon}}" />
+    <meta name="description"
+        content="{{$data.description | default .Params.description | default .Site.Params.description}}">
+    <meta name="og:description"
+        content="{{$data.ogDescription  | default $data.description | default .Params.description | default .Site.Params.ogDescription | default .Site.Params.description}}">
+    <meta property="og:title"
+        content="{{$data.ogTitle | default $data.title | default .Title | default .Site.Params.ogTitle | default .Site.Params.title}}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{$data.lang | default .Params.lang | default .Site.Params.lang}}">
+    {{ if .Site.Params.site_name}}
+    <meta property="og:site_name" content="{{.Site.Params.site_name}}">
+    {{end}}
+    <meta property="og:url" content="{{.Site.Params.domain}}{{.RelPermalink}}">
+    <meta data-rh="true" property="og:url" content="{{.Site.Params.domain}}{{.RelPermalink}}">
+    <meta data-rh="true" property="twitter:domain" content="{{.Site.Params.domain}}">
+    <meta data-rh=" true" property="twitter:url" content="{{.Site.Params.domain}}{{.RelPermalink}}">
+    <meta data-rh="true" name="twitter:title"
+        content="{{$data.twitterTitle | default $data.title | default .Title | default .Site.Params.twitterTitle | default .Site.Params.title}}">
+    <meta data-rh="true" name="twitter:description"
+        content="{{$data.twitterDescription  | default $data.description | default .Params.description | default .Site.Params.twitterDescription | default .Site.Params.description}}">
+    <meta data-rh="true" name="twitter:image:src" content="{{.Site.Params.domain}}{{.RelPermalink}}">
+    {{if $data.metaTags}}
+    {{range $data.metaTags}}
+    {{$metaType:= .metaType}}
+    {{ if eq $metaType "name" }}
+    <meta name="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "itemprop" }}
+    <meta itemprop="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "http-equiv" }}
+    <meta http-equiv="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "property" }}
+    <meta property="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{end}}
+    {{end}}
+    {{if .Site.Params.metaTags}}
+    {{range .Site.Params.metaTags}}
+    {{$metaType:= .metaType}}
+    {{ if eq $metaType "name" }}
+    <meta name="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "itemprop" }}
+    <meta itemprop="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "http-equiv" }}
+    <meta http-equiv="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{ if eq $metaType "property" }}
+    <meta property="{{.value}}" content="{{.content}}">
+    {{ end }}
+    {{end}}
+    {{end}}
+    <title>{{$data.title | default .Title | default .Site.Params.title}}</title>
+    <link rel="canonical" href="{{.Site.Params.domain}}{{.RelPermalink}}">
+    <link rel="shortcut icon" href="{{.Site.Params.favicon}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{ if $data.css}}
+    {{range $data.css}}
+    <link rel='stylesheet' href='{{.}}' />
+    {{end}}
+    {{end}}
+    {{ if $data.inlineCss}}
+    {{range $data.inlineCss}}
+    {{. | safeHTML}}
+    {{end}}
+    {{end}}
+    {{ if .Site.Params.globalCss}}
+    {{range .Site.Params.globalCss}}
+    <link rel='stylesheet' href='{{.}}' />
+    {{end}}
+    {{end}}
+    {{ if .Site.Params.globalInlineCss}}
+    {{range .Site.Params.globalInlineCss}}
+    {{. | safeHTML}}
+    {{end}}
+    {{end}}
+    {{ partial "head/intergrations.html" .}}
+</head>
